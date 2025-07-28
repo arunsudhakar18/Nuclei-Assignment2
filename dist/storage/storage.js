@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Storage = void 0;
 const fs_1 = __importDefault(require("fs"));
-const student_1 = require("./student");
+const student_1 = require("../models/student");
 class Storage {
     static store(data) {
         fs_1.default.writeFileSync(this.filepath, JSON.stringify(data, null, 2));

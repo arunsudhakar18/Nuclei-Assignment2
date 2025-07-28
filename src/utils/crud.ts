@@ -1,10 +1,8 @@
-import { Student } from "./student";
+import { Student } from "../models/student";
 
 export class crudOperations {
-  private students: Student[] = [];
-
   addstudent(student: Student): string[] {
-    if (this.students.some((s) => s.rollno === student.rollno)) {
+    if (Student.students.some((s) => s.rollno === student.rollno)) {
       return ["Roll number already exists."];
     }
 
@@ -13,20 +11,20 @@ export class crudOperations {
       return err;
     }
 
-    this.students.push(student);
-    this.sortStudent();
+    Student.students.push(student);
+    Student.sortStudent();
     return [];
   }
 
   delete(rollnumber: number): boolean {
-    const check = this.students.findIndex((s) => s.rollno === rollnumber);
+    const check = Student.students.findIndex((s) => s.rollno === rollnumber);
     if (check === -1) return false;
-    this.students.splice(check, 1);
+    Student.students.splice(check, 1);
     return true;
   }
 
-  display(sortField?: string, sortOrder?: string) {
-    let arr = [...this.students];
+  display(sortField: string, sortOrder: string) {
+    let arr = [...Student.students];
     if (sortField) {
       arr.sort((a, b) => {
         let cmp = 0;
@@ -57,18 +55,8 @@ export class crudOperations {
     }
   }
 
-  private sortStudent() {
-    this.students.sort((a, b) => {
-      const cmp = a.fullName.localeCompare(b.fullName);
-      if (cmp !== 0) {
-        return cmp;
-      }
-      return a.rollno - b.rollno;
-    });
-  }
-
   getStudents(): Student[] {
-    return this.students;
+    return Student.students;
   }
 
   loadStudents(data: Student[]) {
@@ -80,8 +68,8 @@ export class crudOperations {
         s.rollno,
         s.courses
       );
-      this.students.push(student);
+      Student.students.push(student);
     }
-    this.sortStudent();
+    Student.sortStudent();
   }
 }

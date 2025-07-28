@@ -1,32 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.crudOperations = void 0;
-const student_1 = require("./student");
+const student_1 = require("../models/student");
 class crudOperations {
-    constructor() {
-        this.students = [];
-    }
     addstudent(student) {
-        if (this.students.some((s) => s.rollno === student.rollno)) {
+        if (student_1.Student.students.some((s) => s.rollno === student.rollno)) {
             return ["Roll number already exists."];
         }
         const err = student_1.Student.validate(student);
         if (err.length > 0) {
             return err;
         }
-        this.students.push(student);
-        this.sortStudent();
+        student_1.Student.students.push(student);
+        student_1.Student.sortStudent();
         return [];
     }
     delete(rollnumber) {
-        const check = this.students.findIndex((s) => s.rollno === rollnumber);
+        const check = student_1.Student.students.findIndex((s) => s.rollno === rollnumber);
         if (check === -1)
             return false;
-        this.students.splice(check, 1);
+        student_1.Student.students.splice(check, 1);
         return true;
     }
     display(sortField, sortOrder) {
-        let arr = [...this.students];
+        let arr = [...student_1.Student.students];
         if (sortField) {
             arr.sort((a, b) => {
                 let cmp = 0;
@@ -60,24 +57,15 @@ class crudOperations {
             console.log(`${s.fullName}\t${s.rollno}\t\t${s.age}\t${s.address}\t${s.courses.join(", ")}`);
         }
     }
-    sortStudent() {
-        this.students.sort((a, b) => {
-            const cmp = a.fullName.localeCompare(b.fullName);
-            if (cmp !== 0) {
-                return cmp;
-            }
-            return a.rollno - b.rollno;
-        });
-    }
     getStudents() {
-        return this.students;
+        return student_1.Student.students;
     }
     loadStudents(data) {
         for (const s of data) {
             const student = new student_1.Student(s.fullName, s.age, s.address, s.rollno, s.courses);
-            this.students.push(student);
+            student_1.Student.students.push(student);
         }
-        this.sortStudent();
+        student_1.Student.sortStudent();
     }
 }
 exports.crudOperations = crudOperations;
