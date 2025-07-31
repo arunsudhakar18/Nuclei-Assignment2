@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { auth } from '$lib/firebase';
+	import { toast } from '@zerodevx/svelte-toast';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
 	import { user } from '$lib/authStore';
@@ -13,7 +14,13 @@
 		try {
 			const cred = await signInWithEmailAndPassword(auth, email, password);
 			user.set({ email: cred.user.email ?? '' });
-			alert('Login successful');
+			toast.push('Login successful!', {
+				theme: {
+					'--toastBackground': '#333',
+					'--toastColor': '#fff',
+					'--toastBarBackground': '#0f0'
+				}
+			});
 			goto('/app');
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);

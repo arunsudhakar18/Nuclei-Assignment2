@@ -7,6 +7,8 @@
 	import { page } from '$app/stores';
 	import { user } from '$lib/authStore';
 	import { signOut } from 'firebase/auth';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	function isPublicPath(path: string) {
 		return path === '/' || path === '/login' || path === '/register';
@@ -49,6 +51,13 @@
 	function logout() {
 		signOut(auth).then(() => {
 			user.set(null);
+			toast.push('Logout successful!', {
+				theme: {
+					'--toastBackground': '#333',
+					'--toastColor': '#fff',
+					'--toastBarBackground': '#0f0'
+				}
+			});
 			goto('/');
 		});
 	}
@@ -101,5 +110,6 @@
 
 	<main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 		<slot />
+		<SvelteToast />
 	</main>
 </div>

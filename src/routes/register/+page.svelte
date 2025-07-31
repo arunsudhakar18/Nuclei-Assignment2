@@ -2,6 +2,7 @@
 	import { auth } from '$lib/firebase';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	let email = '';
 	let password = '';
@@ -11,6 +12,13 @@
 		error = '';
 		try {
 			const cred = await createUserWithEmailAndPassword(auth, email, password);
+			toast.push('Login successful!', {
+				theme: {
+					'--toastBackground': '#333',
+					'--toastColor': '#fff',
+					'--toastBarBackground': '#0f0'
+				}
+			});
 			goto('/login');
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);

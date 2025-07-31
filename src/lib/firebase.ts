@@ -4,13 +4,13 @@ import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDWBBwWLvCUYw86XeIWB1aJ2Sru22BKXbU',
-	authDomain: 'todo-app-dbbfa.firebaseapp.com',
-	projectId: 'todo-app-dbbfa',
-	storageBucket: 'todo-app-dbbfa.appspot.com',
-	messagingSenderId: '492885013897',
-	appId: '1:492885013897:web:f974ce7686bade16ec1d58',
-	measurementId: 'G-10STJYZWVZ'
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);

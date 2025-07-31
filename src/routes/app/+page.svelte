@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { uploadFileToCloudinary } from '$lib/fileUpload';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	let newTodo = '';
 	let error = '';
@@ -43,6 +44,13 @@
 				videoDownloadUrl = await uploadFileToCloudinary(videoFile, 'video');
 			}
 			await addTodo(newTodo, imageDownloadUrl, videoDownloadUrl);
+			toast.push('Added successfully!', {
+				theme: {
+					'--toastBackground': '#333',
+					'--toastColor': '#fff',
+					'--toastBarBackground': '#0f0'
+				}
+			});
 			newTodo = '';
 			imageFile = null;
 			videoFile = null;
@@ -54,6 +62,13 @@
 	async function handleDeleteTodo(id: string | undefined) {
 		if (!id) return;
 		await deleteTodo(id);
+		toast.push('Deleted successfully!', {
+			theme: {
+				'--toastBackground': '#333',
+				'--toastColor': '#fff',
+				'--toastBarBackground': '#0f0'
+			}
+		});
 	}
 </script>
 
@@ -61,9 +76,6 @@
 	<div class="mx-auto max-w-4xl">
 		<header class="mb-10 text-center">
 			<h1 class="text-4xl font-bold drop-shadow-sm">My Tasks</h1>
-			<div
-				class="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur"
-			></div>
 		</header>
 
 		<div class="mb-8 rounded-xl bg-white p-6 text-gray-800 shadow-lg">
