@@ -7,10 +7,10 @@ import {
 	onSnapshot,
 	query,
 	orderBy,
-	serverTimestamp
+	serverTimestamp,
+	updateDoc
 } from 'firebase/firestore';
-import { writable } from 'svelte/store';
-import { get } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 import { user } from './authStore';
 
 export interface Todo {
@@ -23,7 +23,7 @@ export interface Todo {
 
 export const todos = writable<Todo[]>([]);
 
-export function subscribeToTodos() {
+export function sub() {
 	const currentUser = get(user);
 	if (!currentUser) return;
 	const q = query(
@@ -51,4 +51,13 @@ export async function deleteTodo(id: string) {
 	const currentUser = get(user);
 	if (!currentUser) throw new Error('Not authenticated');
 	await deleteDoc(doc(db, 'users', currentUser.email, 'todos', id));
+}
+
+export async function updateTodo(id: string, updatedFields: Partial<Todo>) {
+	const currentUser = get(user);
+	if (!currentUser) throw new Error('Not authenticated');
+	const todoRef = doc(db, 'users', currentUser.email, 'todos', id);
+	await updateDoc(todoRef, {
+		...updatedFields
+	});
 }

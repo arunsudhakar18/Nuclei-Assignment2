@@ -6,13 +6,30 @@
 
 	let email = '';
 	let password = '';
+	let cpassword = '';
 	let error = '';
+
+	function isValidPassword(pass: string): boolean {
+		const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
+		return pattern.test(pass);
+	}
 
 	async function signup() {
 		error = '';
+		if (password !== cpassword) {
+			error = 'Passwords is not matching.';
+			return;
+		}
+
+		if (!isValidPassword(password)) {
+			error =
+				'Password must be at least 8 characters, include an uppercase letter, a lowercase letter, a number, and a special character.';
+			return;
+		}
+
 		try {
-			const cred = await createUserWithEmailAndPassword(auth, email, password);
-			toast.push('Login successful!', {
+			await createUserWithEmailAndPassword(auth, email, password);
+			toast.push('Account created successfully!', {
 				theme: {
 					'--toastBackground': '#333',
 					'--toastColor': '#fff',
@@ -20,8 +37,8 @@
 				}
 			});
 			goto('/login');
-		} catch (e) {
-			error = e instanceof Error ? e.message : String(e);
+		} catch (e: any) {
+			error = e;
 		}
 	}
 </script>
@@ -48,9 +65,17 @@
 				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
 			/>
 
+			<input
+				type="password"
+				placeholder="Confirm Password"
+				bind:value={cpassword}
+				required
+				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+			/>
+
 			<button
 				type="submit"
-				disabled={!email || !password}
+				disabled={!email || !password || !cpassword}
 				class="w-full rounded-md bg-green-600 py-3 font-semibold text-white transition duration-200 hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
 			>
 				Create Account

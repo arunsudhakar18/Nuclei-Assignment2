@@ -16,9 +16,9 @@
 			user.set({ email: cred.user.email ?? '' });
 			toast.push('Login successful!', {
 				theme: {
-					'--toastBackground': '#333',
-					'--toastColor': '#fff',
-					'--toastBarBackground': '#0f0'
+					'--toastBackground': '#dcfce7',
+					'--toastColor': '#166534',
+					'--toastBarBackground': '#22c55e'
 				}
 			});
 			goto('/app');
@@ -28,46 +28,75 @@
 	}
 </script>
 
-<div class="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-	<div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-		<h2 class="mb-2 text-center text-2xl font-semibold text-gray-800">Sign In</h2>
-		<p class="mb-6 text-center text-sm text-gray-500">Enter your email and password to continue</p>
+<div class="flex min-h-screen w-full items-center justify-center bg-blue-50 p-4">
+	<div class="mx-auto w-full max-w-md rounded-xl bg-blue-50 p-8">
+		<div class="mb-8 text-center">
+			<div
+				class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-2xl text-white"
+			>
+				👤
+			</div>
+			<h2 class="mb-3 text-3xl font-bold text-blue-900">Welcome Back</h2>
+			<p class="text-base text-blue-600">Enter your credentials to continue</p>
+		</div>
 
-		<form on:submit|preventDefault={login} class="space-y-4">
-			<input
-				type="email"
-				placeholder="Email"
-				bind:value={email}
-				required
-				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-			/>
+		<form on:submit|preventDefault={login} class="space-y-5">
+			<div>
+				<input
+					type="email"
+					placeholder="Email address"
+					bind:value={email}
+					required
+					class="w-full rounded-lg border-2 border-blue-200 bg-white px-4 py-3.5 text-blue-900 placeholder-blue-400 transition-colors focus:border-blue-500 focus:ring-3 focus:ring-blue-300 focus:outline-none"
+				/>
+			</div>
 
-			<input
-				type="password"
-				placeholder="Password"
-				bind:value={password}
-				required
-				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-			/>
+			<div>
+				<input
+					type="password"
+					placeholder="Password"
+					bind:value={password}
+					required
+					class="w-full rounded-lg border-2 border-blue-200 bg-white px-4 py-3.5 text-blue-900 placeholder-blue-400 transition-colors focus:border-blue-500 focus:ring-3 focus:ring-blue-300 focus:outline-none"
+				/>
+			</div>
 
 			<button
 				type="submit"
 				disabled={!email || !password}
-				class="w-full rounded-md bg-blue-600 py-3 font-semibold text-white transition duration-200 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+				class="w-full rounded-lg bg-blue-600 px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-blue-700 focus:ring-3 focus:ring-blue-300 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-blue-600"
 			>
-				Login
+				Sign In
 			</button>
 
 			{#if error}
-				<p class="rounded-md border border-red-200 bg-red-100 p-3 text-sm text-red-600">
+				<div class="rounded-lg border-2 border-red-200 bg-red-50 p-4 text-sm text-red-700">
 					{error}
-				</p>
+				</div>
 			{/if}
 		</form>
 
-		<div class="mt-6 flex flex-col gap-2 text-center text-sm text-gray-600">
-			<a href="/register" class="text-blue-600 hover:underline">Don't have an account? Register</a>
-			<a href="/forgot-password" class="text-blue-600 hover:underline">Forgot password?</a>
+		<div class="mt-8 space-y-3 border-t border-blue-200 pt-6 text-center">
+			<a
+				href="/register"
+				class="block font-medium text-blue-600 transition-colors hover:text-blue-800"
+			>
+				Don't have an account? Create one
+			</a>
 		</div>
 	</div>
 </div>
+
+<style>
+	:global(html, body) {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		background-color: #dbeafe;
+		overflow-x: hidden;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+</style>
