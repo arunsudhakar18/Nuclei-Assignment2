@@ -43,10 +43,10 @@
 	}
 </script>
 
-<div class="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-	<div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-		<h2 class="mb-2 text-center text-2xl font-semibold text-gray-800">Create Account</h2>
-		<p class="mb-6 text-center text-sm text-gray-500">Sign up to get started</p>
+<div class="flex min-h-screen items-center justify-center bg-[#222831] px-4">
+	<div class="w-full max-w-md rounded-2xl bg-[#393E46] p-8 shadow-xl">
+		<h2 class="mb-2 text-center text-3xl font-bold text-[#EEEEEE]">Create Account</h2>
+		<p class="mb-6 text-center text-sm text-[#B6B09F]">Sign up to get started</p>
 
 		<form on:submit|preventDefault={signup} class="space-y-4">
 			<input
@@ -54,7 +54,7 @@
 				placeholder="Email"
 				bind:value={email}
 				required
-				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+				class="w-full rounded-lg border border-[#00ADB5] bg-[#222831] px-4 py-3 text-[#EEEEEE] placeholder-gray-400 focus:ring-2 focus:ring-[#00ADB5] focus:outline-none"
 			/>
 
 			<input
@@ -62,7 +62,7 @@
 				placeholder="Password"
 				bind:value={password}
 				required
-				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+				class="w-full rounded-lg border border-[#00ADB5] bg-[#222831] px-4 py-3 text-[#EEEEEE] placeholder-gray-400 focus:ring-2 focus:ring-[#00ADB5] focus:outline-none"
 			/>
 
 			<input
@@ -70,28 +70,28 @@
 				placeholder="Confirm Password"
 				bind:value={cpassword}
 				required
-				class="w-full rounded-md border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+				class="w-full rounded-lg border border-[#00ADB5] bg-[#222831] px-4 py-3 text-[#EEEEEE] placeholder-gray-400 focus:ring-2 focus:ring-[#00ADB5] focus:outline-none"
 			/>
 
 			<button
 				type="submit"
 				disabled={!email || !password || !cpassword}
-				class="w-full rounded-md bg-green-600 py-3 font-semibold text-white transition duration-200 hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+				class="hover:bg-opacity-80 w-full rounded-lg bg-[#00ADB5] py-3 font-semibold text-[#222831] transition duration-200 focus:ring-2 focus:ring-[#EEEEEE] disabled:cursor-not-allowed disabled:opacity-50"
 			>
 				Create Account
 			</button>
 
 			{#if error}
-				<p class="rounded-md border border-red-200 bg-red-100 p-3 text-sm text-red-600">
+				<p class="rounded-md border border-red-400 bg-red-100 p-3 text-sm text-red-700">
 					{error}
 				</p>
 			{/if}
 		</form>
 
-		<div class="mt-6 text-center text-sm text-gray-600">
+		<div class="mt-6 text-center text-sm text-[#EEEEEE]">
 			<p>
 				Already have an account?
-				<a href="/login" class="text-green-600 hover:underline">Sign in</a>
+				<a href="/login" class="text-[#00ADB5] hover:underline">Sign in</a>
 			</p>
 		</div>
 	</div>

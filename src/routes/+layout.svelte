@@ -8,6 +8,7 @@
 	import { user } from '$lib/authStore';
 	import { signOut } from 'firebase/auth';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+	import { ClipboardList } from 'lucide-svelte';
 
 	function publicpath(path: string) {
 		return path === '/' || path === '/login' || path === '/register';
@@ -63,34 +64,31 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gray-100 text-gray-900">
-	{#if $isAppPage}
-		<header class="bg-blue-600 text-white shadow-md">
-			<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-				<h1 class="flex items-center gap-2 text-xl font-semibold">
-					<span class="text-2xl">📋</span> TODO App
-				</h1>
-				<div class="flex items-center gap-4">
-					{#if $user}
-						<div class="hidden text-sm sm:block">
-							<span class="font-medium">{$user.email}</span>
-						</div>
-					{/if}
-					<button
-						class="rounded-md bg-white px-4 py-1.5 text-sm font-medium text-blue-600 shadow transition hover:bg-gray-100"
-						on:click={logout}
-					>
-						Logout
-					</button>
-				</div>
+{#if $isAppPage}
+	<header class="bg-[#222831] text-[#EEEEEE] shadow-md">
+		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+			<h1 class="flex items-center gap-2 text-xl font-semibold">
+				<ClipboardList class="h-6 w-6 text-[#00ADB5]" />
+				<span class="hidden sm:inline">TaskFlow</span>
+			</h1>
+			<div class="flex items-center gap-4">
+				{#if $user}
+					<div class="hidden text-sm sm:block">
+						<span class="font-medium text-[#EEEEEE]">{$user.email}</span>
+					</div>
+				{/if}
+				<button
+					class="rounded-md bg-[#00ADB5] px-4 py-1.5 text-sm font-medium text-[#222831] shadow transition hover:bg-[#00a2ab] focus:ring-2 focus:ring-[#00ADB5] focus:outline-none"
+					on:click={logout}
+				>
+					Logout
+				</button>
 			</div>
-		</header>
-	{/if}
-
-	<main class="mx-auto max-w-6xl px-4 py-6">
-		<div class="rounded-lg bg-white p-6 shadow-md">
-			<slot />
-			<SvelteToast />
 		</div>
-	</main>
-</div>
+	</header>
+{/if}
+
+<main class="min-h-screen bg-[#393E46]">
+	<slot />
+	<SvelteToast />
+</main>

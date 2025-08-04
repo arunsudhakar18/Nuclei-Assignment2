@@ -19,6 +19,7 @@ export interface Todo {
 	createdAt?: any;
 	imageUrl?: string;
 	videoUrl?: string;
+	completed?: boolean;
 }
 
 export const todos = writable<Todo[]>([]);
@@ -43,7 +44,8 @@ export async function addTodo(text: string, imageUrl?: string, videoUrl?: string
 		text,
 		createdAt: serverTimestamp(),
 		imageUrl: imageUrl || '',
-		videoUrl: videoUrl || ''
+		videoUrl: videoUrl || '',
+		completed: false
 	});
 }
 
@@ -60,4 +62,11 @@ export async function updateTodo(id: string, updatedFields: Partial<Todo>) {
 	await updateDoc(todoRef, {
 		...updatedFields
 	});
+}
+
+export async function toggleTodoCompleted(id: string, completed: boolean) {
+	const currentUser = get(user);
+	if (!currentUser) throw new Error('Not authenticated');
+	const todoRef = doc(db, 'users', currentUser.email, 'todos', id);
+	await updateDoc(todoRef, { completed });
 }
