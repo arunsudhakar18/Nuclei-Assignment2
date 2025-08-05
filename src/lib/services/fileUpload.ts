@@ -9,7 +9,7 @@ export async function uploadFileToCloudinary(file: File, type: 'image' | 'video'
 		body: formData
 	});
 
-	if (!res.ok) throw new Error('Cloudinary upload failed');
+	if (!res.ok) throw new Error('Failed to upload file. Please check your network or file type.');
 	const data = await res.json();
 	return data.secure_url;
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { user } from '$lib/authStore';
+	import { user } from '$lib/stores/authStore';
 	import {
 		todos,
 		sub,
@@ -8,9 +8,9 @@
 		updateTodo,
 		toggleTodoCompleted,
 		type Todo
-	} from '$lib/todoService';
+	} from '$lib/services/todoService';
 	import { onMount } from 'svelte';
-	import { uploadFileToCloudinary } from '$lib/fileUpload';
+import { uploadFileToCloudinary } from '$lib/services/fileUpload';
 	import { toast } from '@zerodevx/svelte-toast';
 
 	let newTodo = '';
@@ -26,7 +26,7 @@
 	let editedVideoFile: File | null = null;
 
 	let showAddDropdown = false;
-	let expandedTodoId: string | null | undefined = null;
+let expandedTodoId: string | null = null;
 
 	function cleartodo() {
 		todos.set([]);
@@ -184,7 +184,7 @@
 					</div>
 
 					<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-						<!-- Image Upload -->
+						
 						<div>
 							<label class="block text-sm font-medium text-[#EEEEEE]">Add Image</label>
 							<div
@@ -205,7 +205,7 @@
 							</div>
 						</div>
 
-						<!-- Video Upload -->
+						
 						<div>
 							<label class="block text-sm font-medium text-[#EEEEEE]">Add Video</label>
 							<div
@@ -255,7 +255,7 @@
 			</div>
 		{/if}
 
-		<!-- Filter Buttons -->
+	
 		<section>
 			<div class="mb-6 flex items-center justify-between">
 				<h2 class="text-xl font-bold text-[#EEEEEE]">Your Tasks</h2>
@@ -288,13 +288,13 @@
 				</button>
 			</div>
 
-			<!-- Task List -->
+		
 			<div class="space-y-4">
 				{#each $todos.filter((t) => (showCompleted ? t.completed : !t.completed)) as todo (todo.id)}
 					<div class="rounded-lg bg-[#393E46] shadow">
 						<div
 							class="flex cursor-pointer items-center justify-between px-4 py-3 hover:bg-[#2c2f35]"
-							on:click={() => (expandedTodoId = expandedTodoId === todo.id ? null : todo.id)}
+			on:click={() => (expandedTodoId = expandedTodoId === todo.id ? null : (todo.id ?? null))}
 						>
 							<div class="flex items-center gap-3">
 								<input
@@ -331,7 +331,7 @@
 										editedText = todo.text;
 										editedImageFile = null;
 										editedVideoFile = null;
-										expandedTodoId = todo.id; // Auto-expand on edit
+	expandedTodoId = todo.id ?? null;
 									}}
 									class="hover:bg-opacity-90 rounded-md bg-[#00ADB5] px-4 py-2 text-sm font-semibold text-white"
 								>

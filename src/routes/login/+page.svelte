@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { auth } from '$lib/firebase';
+	import { auth } from '$lib/services/firebase'
 	import { toast } from '@zerodevx/svelte-toast';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
-	import { user } from '$lib/authStore';
+	import { user } from '$lib/stores/authStore';
 
 	let email = '';
 	let password = '';

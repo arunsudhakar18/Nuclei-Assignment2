@@ -2,10 +2,10 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { goto, afterNavigate } from '$app/navigation';
-	import { auth } from '$lib/firebase';
+import { auth } from '$lib/services/firebase';
 	import { get, derived } from 'svelte/store';
 	import { page } from '$app/stores';
-	import { user } from '$lib/authStore';
+	import { user } from '$lib/stores/authStore';
 	import { signOut } from 'firebase/auth';
 	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
 	import { ClipboardList } from 'lucide-svelte';
